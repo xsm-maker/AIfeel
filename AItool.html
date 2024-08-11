@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="bug.css">
+    <title>AI情绪识别小助手</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        function jump(text, event){
+            // window.location.href='AI.html';
+            event.preventDefault();
+            var url = 'AI.html?text=' + encodeURIComponent(text);
+            window.location.href = url;
+        }
+        function callPythonFunction() {
+                // 创建一个XMLHttpRequest对象用于发送请求
+                var xhr = new XMLHttpRequest();
+                // 设置请求方法和URL
+                xhr.open("POST", "http://localhost:5000/analyze_sent", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                // 监听请求状态变化
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var myEvent = new Event('click');
+                        jump(xhr.responseText,myEvent);
+                    }
+                };
+                // 获取页面上的所有select元素
+                var selectElements = document.querySelectorAll("select");
+
+                // 创建一个数组来存储所有选中的值
+                var selectedValues = [];
+
+                // 遍历所有select元素并获取它们的值
+                for (var i = 0; i < selectElements.length; i++) {
+                    selectedValues.push('我'+selectElements[i].value);
+                }
+
+                // 将所有选中的值用逗号连接起来
+                var text = selectedValues.join(',');
+
+                // 将选中的值放入data对象中
+                var data = {
+                    text: text
+                };
+                xhr.send(JSON.stringify(data));
+            }
+    </script>
+</head>
+
+<body>
+    <!-- <label class="init">bug定义表格指引</label> -->
+    <div class="main">
+        <div class="left">
+            <h1 class="init">AI情绪识别小助手</h1>
+            <img src="./1.gif">
+        </div>
+        <div id="right">
+            <div>
+            <label>感兴趣的</label>
+            <select required id="tz">
+                <option>轻微或没有兴趣</option>
+                <option>有点兴趣</option>
+                <option>适中兴趣</option>
+                <option>极强兴趣</option>
+            </select></div><div>
+            <label>悲伤的</label>
+            <select required>
+                <option>轻微或没有悲伤</option>
+                <option>有点悲伤</option>
+                <option>适中悲伤</option>
+                <option>极强悲伤</option>
+            </select></div><div>
+            <label>厌恶的</label>
+            <select required>
+                <option>轻微或没有厌恶</option>
+                <option>有点厌恶</option>
+                <option>适中厌恶</option>
+                <option>极强厌恶</option>
+            </select></div><div>
+            <label>高兴的</label>
+            <select required>
+                <option>轻微或没有高兴</option>
+                <option>有点高兴</option>
+                <option>适中高兴</option>
+                <option>极强高兴</option>
+            </select></div><div>
+            <label>兴奋的</label>
+            <select required>
+                <option>轻微或没有兴奋</option>
+                <option>有点兴奋</option>
+                <option>适中兴奋</option>
+                <option>极强兴奋</option>
+            </select></div><div>
+            <label>恐惧的</label>
+            <select required>
+                <option>轻微或没有恐惧</option>
+                <option>有点恐惧</option>
+                <option>适中恐惧</option>
+                <option>极强恐惧</option>
+            </select></div><div>
+            <label>热情的</label>
+            <select required>
+                <option>轻微或没有热情</option>
+                <option>有点热情</option>
+                <option>适中热情</option>
+                <option>极强热情</option>
+            </select></div><div>
+            <label>急躁的</label>
+            <select required>
+                <option>轻微或没有急躁</option>
+                <option>有点急躁</option>
+                <option>适中急躁</option>
+                <option>极强急躁</option>
+            </select></div><div>
+            <label>有灵感的</label>
+            <select required id="tz">
+                <option>轻微或没有灵感</option>
+                <option>有点灵感</option>
+                <option>适中灵感</option>
+                <option>极强灵感</option>
+            </select></div><div>
+            <label>坚决的</label>
+            <select required>
+                <option>轻微或没有坚决</option>
+                <option>有点坚决</option>
+                <option>适中坚决</option>
+                <option>极强坚决</option>
+            </select></div><div>
+            <label>伤感的</label>
+            <select required>
+                <option>轻微或没有伤感</option>
+                <option>有点伤感</option>
+                <option>适中伤感</option>
+                <option>极强伤感</option>
+            </select></div><div>
+            <label>愉快的</label>
+            <select required>
+                <option>轻微或没有愉快</option>
+                <option>有点愉快</option>
+                <option>适中愉快</option>
+                <option>极强愉快</option>
+            </select></div><div>
+            <label>战战兢兢的</label>
+            <select required id="tz2">
+                <option>轻微或没有战战兢兢</option>
+                <option>有点战战兢兢</option>
+                <option>适中战战兢兢</option>
+                <option>极强战战兢兢</option>
+            </select></div><div>
+            <label>害怕的</label>
+            <select required>
+                <option>轻微或没有害怕</option>
+                <option>有点害怕</option>
+                <option>适中害怕</option>
+                <option>极强害怕</option>
+            </select></div><div>
+            <label>乐观的</label>
+            <select required>
+                <option>轻微或没有乐观</option>
+                <option>有点乐观</option>
+                <option>适中乐观</option>
+                <option>极强乐观</option>
+            </select></div><div>
+            <label>心烦的</label>
+            <select required>
+                <option>轻微或没有心烦</option>
+                <option>有点心烦</option>
+                <option>适中心烦</option>
+                <option>极强心烦</option>
+            </select></div><div>
+            <label>激动的</label>
+            <select required>
+                <option>轻微或没有激动</option>
+                <option>有点激动</option>
+                <option>适中激动</option>
+                <option>极强激动</option>
+            </select></div><div>
+            <label>内疚的</label>
+            <select required>
+                <option>轻微或没有内疚</option>
+                <option>有点内疚</option>
+                <option>适中内疚</option>
+                <option>极强内疚</option>
+            </select></div><div>
+            <label>自豪的</label>
+            <select required>
+                <option>轻微或没有自豪</option>
+                <option>有点自豪</option>
+                <option>适中自豪</option>
+                <option>极强自豪</option>
+            </select></div><div>
+            <label>愤怒的</label>
+            <select required>
+                <option>轻微或没有愤怒</option>
+                <option>有点愤怒</option>
+                <option>适中愤怒</option>
+                <option>极强愤怒</option>
+            </select></div>
+            <button onclick='callPythonFunction()'>确定</button>
+        </div>
+    </div>
+    
+    <div id="output"></div> 
+</body>
+
+
+</html>

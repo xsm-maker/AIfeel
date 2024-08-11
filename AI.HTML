@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="bug.css">
+    <title>AI情绪识别小助手</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script>
+        window.onload = function() {
+        var displayElement = document.getElementById("right");
+        var urlParams = new URLSearchParams(window.location.search);
+        var text = urlParams.get('text');
+        displayElement.innerHTML = text;
+}
+    </script>
+    <style>
+        #right {
+          font-size: 32px;
+          /* float: right; */
+          left:400px;
+          top:200px;
+        }
+      </style>
+</head>
+
+<body>
+    <!-- <label class="init">bug定义表格指引</label> -->
+    <div class="main">
+        <div class="left">
+            <h1 class="init">AI情绪识别小助手</h1>
+            <img src="./1.gif">
+        </div>
+        <div class="right">
+            <p id="right">
+            </p>
+        </div>
+    </div>
+
+</body>
+
+</html>
